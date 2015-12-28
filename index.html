@@ -108,6 +108,12 @@ SELECT sum(ST_Length(way))/1000 AS km_new_roads_2014 FROM planet_osm_line where 
  SELECT sum(ST_Length(way))/1000 AS km_new_roads_2014 FROM planet_osm_line where highway in ('motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'residential', 'residential_link', 'service', 'tertiary', 'tertiary_link', 'road', 'track', 'unclassified', 'living_street') and (osm_timestamp >= '2014-01-01' and osm_timestamp < '2014-12-31') and osm_version > '1';  
 </code></pre>
 
+<p><b>What are the ids and names of all retail areas that intersect with parking aisles?</b></p>
+
+<pre><code>
+select distinct planet_osm_polygon.osm_id, planet_osm_polygon.name from planet_osm_polygon inner join planet_osm_line on st_intersects(planet_osm_polygon.way, planet_osm_line.way) where planet_osm_polygon.osm_id > 0 AND planet_osm_polygon.landuse = 'retail' and planet_osm_line.service = 'parking_aisle';
+</code></pre>
+
 <h3>
 <a id="aoi" class="anchor" href="#aoi" aria-hidden="true"><span class="octicon octicon-link"></span></a>AOIs (Areas of Interest)</h3>
 
